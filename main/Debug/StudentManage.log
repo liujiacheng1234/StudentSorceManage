@@ -1,0 +1,4 @@
+﻿  Manage.cpp
+C:\Users\Cheng\source\repos\StudentManage\Manage.cpp(151,21): warning C4101: “invalid_argument”: 未引用的局部变量
+C:\Users\Cheng\source\repos\StudentManage\Manage.cpp(346,45): warning C4244: “初始化”: 从“int”转换到“float”，可能丢失数据
+  StudentManage.vcxproj -> C:\Users\Cheng\source\repos\StudentManage\Debug\StudentManage.exe
