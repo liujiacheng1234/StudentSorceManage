@@ -1,24 +1,24 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include <sstream>
 using namespace std;
 #define MAX_STUDENT 30
 
-//½á¹¹Ìå
+//ç»“æž„ä½“
 struct Student {
 	string id;
 	string name;
 	int sorce[8] = { 0 };
-	Student* next;
 };
 
-//º¯ÊýÉùÃ÷
+//å‡½æ•°å£°æ˜Ž
 int duqu(Student* a);
 void xieru(Student* a, int p);
 void ShowMemu();
 int input();
 void paixu(Student* a, int student_nums);
-void choice1(Student* a,int& student_nums);
+void choice1(Student* a, int& student_nums);
 void choice2(Student* a, int student_nums);
 void choice3(Student* a, int student_nums);
 void choice4(Student* a, int student_nums);
@@ -77,7 +77,7 @@ int main() {
 			xieru(a, student_nums);
 			return 0;
 		default:
-			cout << "ÊäÈë´íÎó£¬ÇëÖØÐÂÊäÈë" << endl;
+			cout << "è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥" << endl;
 			break;
 		}
 
@@ -87,14 +87,14 @@ int main() {
 	return 0;
 }
 
-//¶ÁÈ¡º¯Êý
+//è¯»å–å‡½æ•°
 int duqu(Student* a) {
 	fstream file;
 	int i = 0;
 
 	file.open("data.txt", ios::in);
-	
-	for (i = 0;file >> a[i].id >> a[i].name; i++) {
+
+	for (i = 0; file >> a[i].id >> a[i].name; i++) {
 		for (int j = 0; j < 8; j++) {
 			file >> a[i].sorce[j];
 		}
@@ -105,11 +105,11 @@ int duqu(Student* a) {
 	return i;
 }
 
-//Ð´Èëº¯Êý
+//å†™å…¥å‡½æ•°
 void xieru(Student* a, int p) {
 	fstream file;
 	file.open("data.txt", ios::out);
-	for (int i = 0;i < p ; i++) {
+	for (int i = 0; i < p; i++) {
 		file << a[i].id << " " << a[i].name << " ";
 		for (int j = 0; j < 8; j++) {
 			file << a[i].sorce[j] << " ";
@@ -119,7 +119,7 @@ void xieru(Student* a, int p) {
 	file.close();
 }
 
-//ÏÔÊ¾²Ëµ¥
+//æ˜¾ç¤ºèœå•
 void ShowMemu() {
 	cout << "Management for Students' scores" << endl;
 	cout << "1.Input record" << endl;
@@ -136,20 +136,20 @@ void ShowMemu() {
 	cout << "0.Exit" << endl;
 }
 
-//ÊäÈë¹æ·¶ÐÔ¼ì²é
+//è¾“å…¥è§„èŒƒæ€§æ£€æŸ¥
 int input() {
 	string a;
 	int i;
 
 	while (1) {
 		try {
-			cout << "ÇëÊäÈëÑ¡Ôñ£º";
+			cout << "è¯·è¾“å…¥é€‰æ‹©ï¼š";
 			cin >> a;
 			i = stoi(a);
 			break;
 		}
 		catch (exception& invalid_argument) {
-			cout << "ÊäÈë´íÎó£¬ÇëÖØÐÂÊäÈë" << endl;
+			cout << "è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥" << endl;
 			continue;
 		}
 	}
@@ -157,37 +157,37 @@ int input() {
 	return i;
 }
 
-//Â¼ÈëÃ¿¸öÑ§ÉúµÄÑ§ºÅ¡¢ÐÕÃûºÍ¸÷¿Æ¿¼ÊÔ³É¼¨
+//å½•å…¥æ¯ä¸ªå­¦ç”Ÿçš„å­¦å·ã€å§“åå’Œå„ç§‘è€ƒè¯•æˆç»©
 void choice1(Student* a, int& student_nums) {
 	int nums = 0;
 	int nums1 = 0;
 	int sum = 0;
-	cout << "µ±Ç°Ñ§ÉúÊýÁ¿£º" << student_nums << "»¹¿ÉÒÔÊäÈë" << MAX_STUDENT - student_nums << "¸öÑ§Éú" << endl;
-	cout << "ÇëÑ¡ÔñÂ¼ÈëÑ§Éú¸öÊý:" << endl;
+	cout << "å½“å‰å­¦ç”Ÿæ•°é‡ï¼š" << student_nums << "è¿˜å¯ä»¥è¾“å…¥" << MAX_STUDENT - student_nums << "ä¸ªå­¦ç”Ÿ" << endl;
+	cout << "è¯·é€‰æ‹©å½•å…¥å­¦ç”Ÿä¸ªæ•°:" << endl;
 	while (true)
 	{
 		if ((nums = input()) > (MAX_STUDENT - student_nums)) {
-			cout << "Ñ§ÉúÊýÁ¿³¬¹ý×î¸ßÏÞÖÆ" << endl;
+			cout << "å­¦ç”Ÿæ•°é‡è¶…è¿‡æœ€é«˜é™åˆ¶" << endl;
 		}
 		else {
 			break;
 		}
 	}
-	
-	cout << "ÇëÊäÈëÑ§Éú¿ÆÄ¿ÊýÁ¿£º" << endl;
+
+	cout << "è¯·è¾“å…¥å­¦ç”Ÿç§‘ç›®æ•°é‡ï¼š" << endl;
 	while (true)
 	{
 		if ((nums1 = input()) > 6) {
-			cout << "¿ÆÄ¿ÊýÁ¿³¬¹ý×î¸ßÏÞÖÆ" << endl;
+			cout << "ç§‘ç›®æ•°é‡è¶…è¿‡æœ€é«˜é™åˆ¶" << endl;
 		}
 		else {
 			break;
 		}
 	}
 	for (int q = 0; q < nums; student_nums++, q++) {
-		
+
 		a[student_nums].sorce[6] = nums1;
-		cout << "ÇëÊäÈëÃ¿¸öÑ§ÉúµÄÑ§ºÅ¡¢ÐÕÃûºÍ¸÷¿Æ¿¼ÊÔ³É¼¨" << endl;
+		cout << "è¯·è¾“å…¥æ¯ä¸ªå­¦ç”Ÿçš„å­¦å·ã€å§“åå’Œå„ç§‘è€ƒè¯•æˆç»©" << endl;
 		cin >> a[student_nums].id >> a[student_nums].name;
 		for (int i = 0; i < nums1; i++) {
 			int temp = 0;
@@ -200,13 +200,13 @@ void choice1(Student* a, int& student_nums) {
 	}
 
 	xieru(a, student_nums);
-	cout << "Â¼Èë³É¹¦" << endl;
+	cout << "å½•å…¥æˆåŠŸ" << endl;
 	cout << "=====================" << endl;
 	cout << "\n\n\n\n\n\n";
 }
 
 
-//2.¼ÆËãÃ¿ÃÅ¿Î³ÌµÄ×Ü·ÖºÍÆ½¾ù·Ö
+//2.è®¡ç®—æ¯é—¨è¯¾ç¨‹çš„æ€»åˆ†å’Œå¹³å‡åˆ†
 void choice2(Student* a, int student_nums) {
 	int count = 0;
 	int i = 0;
@@ -214,15 +214,15 @@ void choice2(Student* a, int student_nums) {
 		for (i = 0; i < student_nums; i++) {
 			count += a[i].sorce[j];
 		}
-		cout << "µÚ" << j+1 << "¿Æ×Ü·ÖÎª£º" << count << endl;
-		count = count / a[0].sorce[6];
-		cout << "Æ½¾ù·ÖÎª£º" << count << endl;
+		cout << "ç¬¬" << j + 1 << "ç§‘æ€»åˆ†ä¸ºï¼š" << count << endl;
+		count = count / student_nums;
+		cout << "å¹³å‡åˆ†ä¸ºï¼š" << count << endl;
 		cout << "=====================" << endl;
 		count = 0;
 	}
 }
 
-//3.¼ÆËãÃ¿¸öÑ§ÉúµÄ×Ü·ÖºÍÆ½¾ù·Ö
+//3.è®¡ç®—æ¯ä¸ªå­¦ç”Ÿçš„æ€»åˆ†å’Œå¹³å‡åˆ†
 void choice3(Student* a, int student_nums) {
 	int count = 0;
 	for (int i = 0; i < student_nums; i++) {
@@ -230,15 +230,15 @@ void choice3(Student* a, int student_nums) {
 		for (int j = 0; j < a[i].sorce[6]; j++) {
 			count += a[i].sorce[j];
 		}
-		cout << "×Ü·ÖÎª£º" << count << endl;
+		cout << "æ€»åˆ†ä¸ºï¼š" << count << endl;
 		count = count / a[i].sorce[6];
-		cout << "Æ½¾ù·ÖÎª£º" << count << endl;
+		cout << "å¹³å‡åˆ†ä¸ºï¼š" << count << endl;
 		cout << "=====================" << endl;
 		count = 0;
 	}
 }
 
-//¸ù¾Ý×Ü·ÖÅÅÐò
+//æ ¹æ®æ€»åˆ†æŽ’åº
 void paixu(Student* a, int student_nums) {
 	Student temp;
 	for (int i = 0; i < student_nums - 1; i++) {
@@ -252,7 +252,7 @@ void paixu(Student* a, int student_nums) {
 	}
 }
 
-//4.°´Ã¿¸öÑ§ÉúµÄ×Ü·ÖÓÉ¸ßµ½µÍÅÅ³öÃû´Î±í
+//4.æŒ‰æ¯ä¸ªå­¦ç”Ÿçš„æ€»åˆ†ç”±é«˜åˆ°ä½ŽæŽ’å‡ºåæ¬¡è¡¨
 void choice4(Student* a, int student_nums) {
 	paixu(a, student_nums);
 	for (int i = 0; i < student_nums; i++) {
@@ -262,23 +262,28 @@ void choice4(Student* a, int student_nums) {
 	cout << "\n\n\n\n" << endl;
 }
 
-//5.°´Ã¿¸öÑ§ÉúµÄ×Ü·ÖÓÉµÍµ½¸ßÅÅ³öÃû´Î±í£»
+//5.æŒ‰æ¯ä¸ªå­¦ç”Ÿçš„æ€»åˆ†ç”±ä½Žåˆ°é«˜æŽ’å‡ºåæ¬¡è¡¨ï¼›
 void choice5(Student* a, int student_nums) {
 	paixu(a, student_nums);
-	for (int i = student_nums-1; i >= 0; i--) {
+	for (int i = student_nums - 1; i >= 0; i--) {
 		cout << a[i].id << " " << a[i].name << " " << a[i].sorce[7] << endl;
 	}
 	cout << "=====================" << endl;
 	cout << "\n\n\n\n" << endl;
 }
 
-//6.°´Ñ§ºÅÓÉÐ¡µ½´óÅÅ³ö³É¼¨±í
+//6.æŒ‰å­¦å·ç”±å°åˆ°å¤§æŽ’å‡ºæˆç»©è¡¨
 void choice6(Student* a, int student_nums) {
 	Student temp;
-	long long int u = 0;
 	for (int i = 0; i < student_nums - 1; i++) {
 		for (int j = i + 1; j < student_nums; j++) {
-			if (stoi(a[i].id) < stoi(a[j].id)) {
+			stringstream temp1, temp2;
+			temp1 << a[i].id;
+			temp2 << a[j].id;
+			long long num1, num2;
+			temp1 >> num1;
+			temp2 >> num2;
+			if (num1 < num2) {
 				temp = a[i];
 				a[i] = a[j];
 				a[j] = temp;
@@ -292,12 +297,12 @@ void choice6(Student* a, int student_nums) {
 	cout << "\n\n\n\n" << endl;
 }
 
-//7.°´ÐÕÃûµÄ×ÖµäË³ÐòÅÅ³ö³É¼¨±í
+//7.æŒ‰å§“åçš„å­—å…¸é¡ºåºæŽ’å‡ºæˆç»©è¡¨
 void choice7(Student* a, int student_nums) {
 	Student temp;
 	for (int i = 0; i < student_nums - 1; i++) {
 		for (int j = i + 1; j < student_nums; j++) {
-			if (a[i].name.compare(a[j].name)>0) {
+			if (a[i].name.compare(a[j].name) > 0) {
 				temp = a[i];
 				a[i] = a[j];
 				a[j] = temp;
@@ -311,39 +316,45 @@ void choice7(Student* a, int student_nums) {
 	cout << "\n\n\n\n" << endl;
 }
 
-//8.°´Ñ§ºÅ²éÑ¯Ñ§ÉúÅÅÃû¼°Æä¿¼ÊÔ³É¼¨
+//8.æŒ‰å­¦å·æŸ¥è¯¢å­¦ç”ŸæŽ’ååŠå…¶è€ƒè¯•æˆç»©
 void choice8(Student* a, int student_nums) {
 	paixu(a, student_nums);
-	cout << "ÇëÊäÈëÒª²éÑ¯µÄÑ§ºÅ£º";
-	int temp = input();
+	long long temp;
+	cout << "è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å­¦å·ï¼š";
+
+	cin >> temp;
 	for (int i = 0; i < student_nums; i++) {
-		if (temp == stoi(a[i].id)) {
-			cout << a[i].id << " " << a[i].name << " ÅÅÃûµÚ£º" << i + 1 << " ×Ü·Ö£º" << a[i].sorce[7] << endl;
+		stringstream temp1;
+		temp1 << a[i].id;
+		long long num;
+		temp1 >> num;
+		if (temp == num) {
+			cout << a[i].id << " " << a[i].name << " æŽ’åç¬¬ï¼š" << i + 1 << " æ€»åˆ†ï¼š" << a[i].sorce[7] << endl;
 		}
 	}
 	cout << "=====================" << endl;
 	cout << "\n\n\n\n" << endl;
 }
 
-//9.°´ÐÕÃû²éÑ¯Ñ§ÉúÅÅÃû¼°Æä¿¼ÊÔ³É¼¨
+//9.æŒ‰å§“åæŸ¥è¯¢å­¦ç”ŸæŽ’ååŠå…¶è€ƒè¯•æˆç»©
 void choice9(Student* a, int student_nums) {
 	paixu(a, student_nums);
-	cout << "ÇëÊäÈëÒª²éÑ¯µÄÃû×Ö£º";
+	cout << "è¯·è¾“å…¥è¦æŸ¥è¯¢çš„åå­—ï¼š";
 	string temp;
 	cin >> temp;
 	for (int i = 0; i < student_nums; i++) {
 		if (temp == a[i].name) {
-			cout << a[i].id << " " << a[i].name << " ÅÅÃûµÚ£º" << i + 1 << " ×Ü·Ö£º" << a[i].sorce[7] << endl;
+			cout << a[i].id << " " << a[i].name << " æŽ’åç¬¬ï¼š" << i + 1 << " æ€»åˆ†ï¼š" << a[i].sorce[7] << endl;
 		}
 	}
 	cout << "=====================" << endl;
 	cout << "\n\n\n\n" << endl;
 }
 
-//10.°´ÓÅÐã£¨90~100£©¡¢Á¼ºÃ£¨80~89£©¡¢ÖÐµÈ£¨70~79£©¡¢¼°¸ñ£¨60~69£©¡¢²»¼°¸ñ£¨0~59£©5¸öÀà±ð£¬
-//   ¶ÔÃ¿ÃÅ¿Î³Ì·Ö±ðÍ³¼ÆÃ¿¸öÀà±ðµÄÈËÊýÒÔ¼°ËùÕ¼µÄ°Ù·Ö±È
+//10.æŒ‰ä¼˜ç§€ï¼ˆ90~100ï¼‰ã€è‰¯å¥½ï¼ˆ80~89ï¼‰ã€ä¸­ç­‰ï¼ˆ70~79ï¼‰ã€åŠæ ¼ï¼ˆ60~69ï¼‰ã€ä¸åŠæ ¼ï¼ˆ0~59ï¼‰5ä¸ªç±»åˆ«ï¼Œ
+//   å¯¹æ¯é—¨è¯¾ç¨‹åˆ†åˆ«ç»Ÿè®¡æ¯ä¸ªç±»åˆ«çš„äººæ•°ä»¥åŠæ‰€å çš„ç™¾åˆ†æ¯”
 void choice10(Student* a, int student_nums) {
-	float A = 0, B = 0, C = 0, D = 0, E = 0, G = student_nums;
+	float A = 0, B = 0, C = 0, D = 0, E = 0, G = (float)student_nums;
 	for (int i = 0; i < a[0].sorce[6]; i++) {
 		for (int j = 0; j < student_nums; j++) {
 			if (a[j].sorce[i] >= 90 && a[j].sorce[i] <= 100) {
@@ -362,19 +373,19 @@ void choice10(Student* a, int student_nums) {
 				E++;
 			}
 		}
-		cout << "µÚ" << i + 1 << "¿Æ£º" << endl;
-		cout << "ÓÅÐãÈËÊý£º" << A << " ËùÕ¼°Ù·Ö±ÈÎª£º" << (A/G)*100 << "%" << endl;
-		cout << "Á¼ºÃÈËÊý£º" << B << " ËùÕ¼°Ù·Ö±ÈÎª£º" << (B / G) * 100 << "%" << endl;
-		cout << "ÖÐµÈÈËÊý£º" << C << " ËùÕ¼°Ù·Ö±ÈÎª£º" << (C / G) * 100 << "%" << endl;
-		cout << "¼°¸ñÈËÊý£º" << D << " ËùÕ¼°Ù·Ö±ÈÎª£º" << (D / G) * 100 << "%" << endl;
-		cout << "²»¼°¸ñÈËÊý£º" << E << " ËùÕ¼°Ù·Ö±ÈÎª£º" << (E / G) * 100 << "%" << endl;
+		cout << "ç¬¬" << i + 1 << "ç§‘ï¼š" << endl;
+		cout << "ä¼˜ç§€äººæ•°ï¼š" << A << " æ‰€å ç™¾åˆ†æ¯”ä¸ºï¼š" << (A / G) * 100 << "%" << endl;
+		cout << "è‰¯å¥½äººæ•°ï¼š" << B << " æ‰€å ç™¾åˆ†æ¯”ä¸ºï¼š" << (B / G) * 100 << "%" << endl;
+		cout << "ä¸­ç­‰äººæ•°ï¼š" << C << " æ‰€å ç™¾åˆ†æ¯”ä¸ºï¼š" << (C / G) * 100 << "%" << endl;
+		cout << "åŠæ ¼äººæ•°ï¼š" << D << " æ‰€å ç™¾åˆ†æ¯”ä¸ºï¼š" << (D / G) * 100 << "%" << endl;
+		cout << "ä¸åŠæ ¼äººæ•°ï¼š" << E << " æ‰€å ç™¾åˆ†æ¯”ä¸ºï¼š" << (E / G) * 100 << "%" << endl;
 		cout << "=====================" << endl;
 		cout << "\n\n\n\n";
 		A = 0, B = 0, C = 0, D = 0, E = 0;
 	}
 }
 
-//Êä³öÃ¿¸öÑ§ÉúµÄÑ§ºÅ¡¢ÐÕÃû¡¢¸÷¿Æ¿¼ÊÔ³É¼¨£¬ÒÔ¼°Ã¿ÃÅ¿Î³ÌµÄ×Ü·ÖºÍÆ½¾ù·Ö
+//è¾“å‡ºæ¯ä¸ªå­¦ç”Ÿçš„å­¦å·ã€å§“åã€å„ç§‘è€ƒè¯•æˆç»©ï¼Œä»¥åŠæ¯é—¨è¯¾ç¨‹çš„æ€»åˆ†å’Œå¹³å‡åˆ†
 void choice11(Student* a, int student_nums) {
 	paixu(a, student_nums);
 	for (int i = 0; i < student_nums; i++) {
